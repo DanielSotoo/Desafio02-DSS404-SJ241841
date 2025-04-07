@@ -1,0 +1,26 @@
+# Activar el motor de reescritura
+RewriteEngine On
+
+# Redireccionar a la página de inicio si no hay ruta específica
+RewriteRule ^$ index.php [L]
+
+# Evitar que los directorios y archivos se muestren directamente
+Options -Indexes
+
+# Proteger el directorio de uploads
+<FilesMatch "\.(?i:php)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Permitir el acceso a archivos PDF e imágenes en el directorio uploads
+<FilesMatch "\.(?i:pdf|jpe?g|png|gif)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Evitar el acceso a archivos críticos
+<FilesMatch "^(\.htaccess|config\.php)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
